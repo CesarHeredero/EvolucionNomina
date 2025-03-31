@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución de la Nómina</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Evolución de la Nómina</h1>
+        <nav>
+            <ul>
+                <li><a href="pages/form.html">Formulario</a></li>
+                <li><a href="pages/dashboard.html">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Bienvenido a la aplicación de gestión de nómina</h2>
+        <p>Utiliza el menú para navegar entre el formulario de entrada de datos y el dashboard de visualización.</p>
+    </main>
+    <script>
+        // Verificar si el usuario está autenticado
+        const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
+        if (!token) {
+            console.log('Usuario no autenticado. Redirigiendo al login...');
+            window.location.href = 'pages/login.html'; // Redirigir al login
+        } else {
+            fetch('http://localhost:3000/api/authenticated', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+                },
+            })
+                .then(response => {
+                    if (response.status === 401) {
+                        console.log('Usuario no autenticado. Redirigiendo al login...');
+                        window.location.href = 'pages/login.html'; // Redirigir al login
+                    }
+                })
+                .catch(err => console.error('Error al verificar autenticación:', err));
+        }
+    </script>
+</body>
+</html>

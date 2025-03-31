@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Nómina</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <header class="menu">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="form.html">Formulario</a></li>
+                <li><a href="#">Gráfica</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <h1>Dashboard de Nómina</h1>
+        <div class="dashboard-layout">
+            <div class="table-container">
+                <table id="payrollTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Mes</th>
+                            <th>Empresa</th>
+                            <th>Sueldo Neto (€)</th>
+                            <th>Retribución Flexible (€)</th>
+                            <th>Kilometraje (€)</th>
+                            <th>Total (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos se llenarán dinámicamente -->
+                    </tbody>
+                </table>
+                <div id="paginationControls" class="pagination-controls">
+                    <!-- Controles de paginación se llenarán dinámicamente -->
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="evolutionChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

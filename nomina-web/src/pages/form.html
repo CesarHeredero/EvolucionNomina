@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Nómina</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <!-- Cabecera de menú -->
+    <header class="menu">
+        <nav>
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#">Gráfica</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Registro de Nómina</h1>
+        <h2>Introduce los datos de la nómina</h2>
+        <form id="payrollForm" class="form">
+            <!-- Campo Año -->
+            <div class="form-group">
+                <label for="year">Año:</label>
+                <select id="year" name="year" class="form-control" required>
+                </select>
+            </div>
+
+            <!-- Campo Mes -->
+            <div class="form-group">
+                <label for="month">Mes:</label>
+                <select id="month" name="month" class="form-control" required>
+                </select>
+            </div>
+
+            <!-- Campo Empresa -->
+            <div class="form-group">
+                <label for="company">Empresa:</label>
+                <select id="company" name="company" class="form-control" required>
+                    <option value="Pamicom">Pamicom</option>
+                    <option value="Devoteam">Devoteam</option>
+                    <option value="Flexicar" selected>Flexicar</option>
+                </select>
+            </div>
+
+            <!-- Campo Sueldo Neto -->
+            <div class="form-group">
+                <label for="netMonth">Sueldo Neto (€):</label>
+                <input type="number" id="netMonth" name="netMonth" class="form-control" step="0.01" min="0" required>
+            </div>
+
+            <!-- Campo Retribución Flexible -->
+            <div class="form-group">
+                <label for="flexibleCompensation">Retribución Flexible (€):</label>
+                <input type="number" id="flexibleCompensation" name="flexibleCompensation" class="form-control" step="0.01" min="0">
+            </div>
+
+            <!-- Campo Kilometraje -->
+            <div class="form-group">
+                <label for="mileage">Kilometraje (€):</label>
+                <input type="number" id="mileage" name="mileage" class="form-control" step="0.01" min="0">
+            </div>
+
+            <!-- Botón Guardar -->
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+    </div>
+    <script src="../assets/js/form.js"></script>
+</body>
+</html>

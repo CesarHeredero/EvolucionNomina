@@ -1,0 +1,836 @@
+{
+  "payroll": [
+    {
+      "year": "2016",
+      "month": "7",
+      "company": "Pamicom",
+      "netMonth": 1159.8,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2016",
+      "month": "8",
+      "company": "Pamicom",
+      "netMonth": 1159.8,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2016",
+      "month": "9",
+      "company": "Pamicom",
+      "netMonth": 1159.8,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2016",
+      "month": "10",
+      "company": "Pamicom",
+      "netMonth": 1159.8,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2016",
+      "month": "11",
+      "company": "Pamicom",
+      "netMonth": 1159.8,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2016",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1431.12,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "5",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "6",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "7",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "8",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "9",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "10",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "11",
+      "company": "Devoteam",
+      "netMonth": 1306.72,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2017",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1306.25,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 2491.7,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "5",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "6",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "7",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "8",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "9",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "10",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "11",
+      "company": "Devoteam",
+      "netMonth": 1265.25,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2018",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1478.65,
+      "flexibleCompensation": 93.33,
+      "mileage": 0
+    },
+    {
+      "year": "2019",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 2294.85,
+      "flexibleCompensation": 145,
+      "mileage": 115.2
+    },
+    {
+      "year": "2019",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1258.81,
+      "flexibleCompensation": 145,
+      "mileage": 115.2
+    },
+    {
+      "year": "2019",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1262.72,
+      "flexibleCompensation": 145,
+      "mileage": 120.96
+    },
+    {
+      "year": "2019",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 1280.07,
+      "flexibleCompensation": 145,
+      "mileage": 115.2
+    },
+    {
+      "year": "2017",
+      "month": "5",
+      "company": "Devoteam",
+      "netMonth": 1280.07,
+      "flexibleCompensation": 145,
+      "mileage": 109.44
+    },
+    {
+      "year": "2017",
+      "month": "6",
+      "company": "Devoteam",
+      "netMonth": 1280.07,
+      "flexibleCompensation": 145,
+      "mileage": 115.2
+    },
+    {
+      "year": "2019",
+      "month": "7",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 125,
+      "mileage": 132.48
+    },
+    {
+      "year": "2019",
+      "month": "8",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 125,
+      "mileage": 28.8
+    },
+    {
+      "year": "2019",
+      "month": "9",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 125,
+      "mileage": 120.96
+    },
+    {
+      "year": "2019",
+      "month": "10",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 125,
+      "mileage": 132.48
+    },
+    {
+      "year": "2019",
+      "month": "11",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 125,
+      "mileage": 115.2
+    },
+    {
+      "year": "2019",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1264.83,
+      "flexibleCompensation": 125,
+      "mileage": 74.9
+    },
+    {
+      "year": "2020",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 2294.85,
+      "flexibleCompensation": 164,
+      "mileage": 109.44
+    },
+    {
+      "year": "2020",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1258.81,
+      "flexibleCompensation": 164,
+      "mileage": 115.2
+    },
+    {
+      "year": "2020",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1262.72,
+      "flexibleCompensation": 164,
+      "mileage": 46.08
+    },
+    {
+      "year": "2020",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 1280.07,
+      "flexibleCompensation": 164,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "5",
+      "company": "Devoteam",
+      "netMonth": 1280.07,
+      "flexibleCompensation": 165,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "6",
+      "company": "Devoteam",
+      "netMonth": 1280.07,
+      "flexibleCompensation": 140,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "7",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "8",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "9",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "10",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "11",
+      "company": "Devoteam",
+      "netMonth": 1295.3,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2020",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1264.83,
+      "flexibleCompensation": 0,
+      "mileage": 5.26
+    },
+    {
+      "year": "2021",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 2977.29,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "5",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "6",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "7",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "8",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "9",
+      "company": "Devoteam",
+      "netMonth": 1523.75,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2021",
+      "month": "10",
+      "company": "Devoteam",
+      "netMonth": 1523.56,
+      "flexibleCompensation": 120,
+      "mileage": 17.24
+    },
+    {
+      "year": "2021",
+      "month": "11",
+      "company": "Devoteam",
+      "netMonth": 1687.59,
+      "flexibleCompensation": 120,
+      "mileage": 5.76
+    },
+    {
+      "year": "2021",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1687.37,
+      "flexibleCompensation": 120,
+      "mileage": 0
+    },
+    {
+      "year": "2022",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 2925.15,
+      "flexibleCompensation": 186,
+      "mileage": 0
+    },
+    {
+      "year": "2022",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1646.6,
+      "flexibleCompensation": 186,
+      "mileage": 17.28
+    },
+    {
+      "year": "2022",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1646.6,
+      "flexibleCompensation": 186,
+      "mileage": 23.04
+    },
+    {
+      "year": "2022",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 1646.6,
+      "flexibleCompensation": 186,
+      "mileage": 17.28
+    },
+    {
+      "year": "2022",
+      "month": "5",
+      "company": "Devoteam",
+      "netMonth": 1646.39,
+      "flexibleCompensation": 186,
+      "mileage": 17.28
+    },
+    {
+      "year": "2022",
+      "month": "6",
+      "company": "Devoteam",
+      "netMonth": 1646.39,
+      "flexibleCompensation": 186,
+      "mileage": 17.28
+    },
+    {
+      "year": "2022",
+      "month": "7",
+      "company": "Devoteam",
+      "netMonth": 1646.39,
+      "flexibleCompensation": 186,
+      "mileage": 0
+    },
+    {
+      "year": "2022",
+      "month": "8",
+      "company": "Devoteam",
+      "netMonth": 1646.39,
+      "flexibleCompensation": 186,
+      "mileage": 0
+    },
+    {
+      "year": "2022",
+      "month": "9",
+      "company": "Devoteam",
+      "netMonth": 1646.39,
+      "flexibleCompensation": 186,
+      "mileage": 23.04
+    },
+    {
+      "year": "2022",
+      "month": "10",
+      "company": "Devoteam",
+      "netMonth": 1687.59,
+      "flexibleCompensation": 186,
+      "mileage": 11.52
+    },
+    {
+      "year": "2022",
+      "month": "11",
+      "company": "Devoteam",
+      "netMonth": 1687.59,
+      "flexibleCompensation": 186,
+      "mileage": 17.28
+    },
+    {
+      "year": "2022",
+      "month": "12",
+      "company": "Devoteam",
+      "netMonth": 1646.84,
+      "flexibleCompensation": 186,
+      "mileage": 23.04
+    },
+    {
+      "year": "2023",
+      "month": "1",
+      "company": "Devoteam",
+      "netMonth": 2961.62,
+      "flexibleCompensation": 190,
+      "mileage": 17.28
+    },
+    {
+      "year": "2023",
+      "month": "2",
+      "company": "Devoteam",
+      "netMonth": 1667.81,
+      "flexibleCompensation": 190,
+      "mileage": 17.28
+    },
+    {
+      "year": "2023",
+      "month": "3",
+      "company": "Devoteam",
+      "netMonth": 1667.81,
+      "flexibleCompensation": 100,
+      "mileage": 23.04
+    },
+    {
+      "year": "2023",
+      "month": "4",
+      "company": "Devoteam",
+      "netMonth": 2326.96,
+      "flexibleCompensation": 0,
+      "mileage": 23.04
+    },
+    {
+      "year": "2023",
+      "month": "5",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "6",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "7",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "8",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "9",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "10",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "11",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2023",
+      "month": "12",
+      "company": "Flexicar",
+      "netMonth": 2255.4,
+      "flexibleCompensation": 0,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "1",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "2",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "3",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "4",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "5",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "6",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "7",
+      "company": "Flexicar",
+      "netMonth": 2444.69,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "8",
+      "company": "Flexicar",
+      "netMonth": 2444.36,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "9",
+      "company": "Flexicar",
+      "netMonth": 2444.36,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "10",
+      "company": "Flexicar",
+      "netMonth": 2444.36,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "11",
+      "company": "Flexicar",
+      "netMonth": 2444.36,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2024",
+      "month": "12",
+      "company": "Flexicar",
+      "netMonth": 2444.36,
+      "flexibleCompensation": 40.8,
+      "mileage": 0
+    },
+    {
+      "year": "2025",
+      "month": "1",
+      "company": "Flexicar",
+      "netMonth": 2429.03,
+      "flexibleCompensation": 56.63,
+      "mileage": 0
+    },
+    {
+      "year": "2025",
+      "month": "2",
+      "company": "Flexicar",
+      "netMonth": 2429.03,
+      "flexibleCompensation": 56.63,
+      "mileage": 0
+    }
+  ]
+}
