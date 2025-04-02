@@ -13,40 +13,104 @@
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="form.html">Formulario</a></li>
                 <li><a href="#">Gráfica</a></li>
+                <li><button class="logout-btn" onclick="logout()">Logout</button></li>
             </ul>
         </nav>
     </header>
 
     <div class="container-fluid">
         <h1>Dashboard de Nómina</h1>
-        <div class="dashboard-layout">
-            <div class="table-container">
-                <table id="payrollTable" class="table">
-                    <thead>
-                        <tr>
-                            <th>Año</th>
-                            <th>Mes</th>
-                            <th>Empresa</th>
-                            <th>Sueldo Neto (€)</th>
-                            <th>Retribución Flexible (€)</th>
-                            <th>Kilometraje (€)</th>
-                            <th>Total (€)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Los datos se llenarán dinámicamente -->
-                    </tbody>
-                </table>
-                <div id="paginationControls" class="pagination-controls">
-                    <!-- Controles de paginación se llenarán dinámicamente -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button" onclick="showTab('current')">Nómina</button>
+                <button class="tab-button" onclick="showTab('new')">Resumen Anual</button>
+            </div>
+            <!-- Botón para abrir el modal -->
+            <button class="btn add-payroll-btn" onclick="openModal()">
+                <span>+</span> Añadir Nómina
+            </button>
+        </div>
+        <div id="current" class="tab-content">
+            <div class="dashboard-layout">
+                <div class="table-container">
+                    <table id="payrollTable" class="table">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">ID</th> <!-- Columna oculta para el ID -->
+                                <th>Año</th>
+                                <th>Mes</th>
+                                <th>Empresa</th>
+                                <th>Sueldo Neto (€)</th>
+                                <th>Retribución Flexible (€)</th>
+                                <th>Kilometraje (€)</th>
+                                <th>Total (€)</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los datos se llenarán dinámicamente -->
+                        </tbody>
+                    </table>
+                    <div id="paginationControls" class="pagination-controls">
+                        <!-- Controles de paginación se llenarán dinámicamente -->
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="evolutionChart"></canvas>
                 </div>
             </div>
-            <div class="chart-container">
-                <canvas id="evolutionChart"></canvas>
+        </div>
+
+        <!-- Modal para el formulario -->
+        <div id="payrollModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Añadir Nómina</h2>
+                <form id="payrollForm" class="form">
+                    <div class="form-group">
+                        <label for="year">Año</label>
+                        <input type="number" id="year" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="month">Mes</label>
+                        <input type="number" id="month" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Empresa</label>
+                        <select id="company" class="form-control" required>
+                            <option value="Pamicom">Pamicom</option>
+                            <option value="Devoteam">Devoteam</option>
+                            <option value="Flexicar">Flexicar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="netSalary">Sueldo Neto (€)</label>
+                        <input type="number" id="netSalary" class="form-control" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flexibleCompensation">Retribución Flexible (€)</label>
+                        <input type="number" id="flexibleCompensation" class="form-control" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="mileage">Kilometraje (€)</label>
+                        <input type="number" id="mileage" class="form-control" step="0.01" min="0">
+                    </div>
+                    <button type="submit" class="btn">Guardar</button>
+                </form>
             </div>
         </div>
+        <div id="new" class="tab-content" style="display: none;">
+            <h2>Resumen Anual</h2>
+            <p>Contenido para la nueva pestaña.</p>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Incluir Chart.js -->
+    <script>
+        // Hacer que las funciones estén disponibles globalmente
+        window.enableRowEdit = enableRowEdit;
+        window.saveRowEdit = saveRowEdit;
+        window.cancelRowEdit = cancelRowEdit;
+    </script>
     <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

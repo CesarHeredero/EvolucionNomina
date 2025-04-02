@@ -7,40 +7,20 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Evolución de la Nómina</h1>
+    <header class="menu">
         <nav>
             <ul>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="pages/form.html">Formulario</a></li>
                 <li><a href="pages/dashboard.html">Dashboard</a></li>
+                <li><button class="logout-btn" onclick="logout()">Logout</button></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <h2>Bienvenido a la aplicación de gestión de nómina</h2>
-        <p>Utiliza el menú para navegar entre el formulario de entrada de datos y el dashboard de visualización.</p>
-    </main>
-    <script>
-        // Verificar si el usuario está autenticado
-        const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
-        if (!token) {
-            console.log('Usuario no autenticado. Redirigiendo al login...');
-            window.location.href = 'pages/login.html'; // Redirigir al login
-        } else {
-            fetch('http://localhost:3000/api/authenticated', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
-                },
-            })
-                .then(response => {
-                    if (response.status === 401) {
-                        console.log('Usuario no autenticado. Redirigiendo al login...');
-                        window.location.href = 'pages/login.html'; // Redirigir al login
-                    }
-                })
-                .catch(err => console.error('Error al verificar autenticación:', err));
-        }
-    </script>
+    <div class="container-fluid">
+        <h1>Evolución de la Nómina</h1>
+        <p>Bienvenido a la aplicación de gestión de nómina. Utiliza el menú para navegar entre las secciones.</p>
+    </div>
+    <script src="assets/js/index.js"></script>
 </body>
 </html>
