@@ -58,6 +58,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     setInterval(keepAlive, 5 * 60 * 1000);
 
+    const fetchPayrolls = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Usuario no autenticado. Redirigiendo al login...');
+                window.location.href = '../pages/login.html';
+                return [];
+            }
+
+            const response = await fetch('http://localhost:3000/api/payroll', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al obtener las nóminas: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return data.payrolls || [];
+        } catch (error) {
+            console.error('Error al obtener las nóminas:', error);
+            return [];
+        }
+    };
+
     const renderTable = (page) => {
         tableBody.innerHTML = ''; // Limpiar la tabla
         const start = (page - 1) * recordsPerPage;
@@ -83,9 +111,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${item.mileage.toFixed(2)}</td>
                 <td>${totalRowAmount.toFixed(2)}</td>
                 <td>
-                    <button class="edit-btn" onclick="enableRowEdit(${sortedPayroll.indexOf(item)})">
-                        ✏️
-                    </button>
+                    <button class="edit-btn" onclick="enableRowEdit(${sortedPayroll.indexOf(item)})">✏️</button>
+                    <button class="delete-btn" onclick="deleteRow(${sortedPayroll.indexOf(item)})">🗑️</button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -197,14 +224,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const loadData = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            console.error('Usuario no autenticado. Redirigiendo al login...');
-            window.location.href = '../pages/login.html';
-            return;
-        }
-
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Usuario no autenticado. Redirigiendo al login...');
+                window.location.href = '../pages/login.html';
+                return;
+            }
+
             const response = await fetch('http://localhost:3000/api/payroll', {
                 method: 'GET',
                 headers: {
@@ -223,16 +250,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const data = await response.json();
-            if (!data || !Array.isArray(data.payroll)) {
-                console.error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payroll".');
+            if (!data || !Array.isArray(data.payrolls)) {
+                console.error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
                 tableBody.innerHTML = '<tr><td colspan="8">Error al cargar los datos</td></tr>';
                 return;
             }
 
-            sortedPayroll = data.payroll.map(item => ({
-                id: item.id, // Asegurarse de que el ID esté presente
-                year: item.year,
-                month: item.month,
+            // Actualizar la tabla con los datos obtenidos de Firebase
+            sortedPayroll = data.payrolls.map(item => ({
+                id: item.id,
+                year: parseInt(item.year, 10),
+                month: parseInt(item.month, 10),
                 company: item.company,
                 netMonth: parseFloat(item.netMonth) || 0,
                 flexibleCompensation: parseFloat(item.flexibleCompensation) || 0,
@@ -344,10 +372,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
+        // Actualizar los valores del elemento con los datos del formulario
         inputs.forEach(input => {
             const field = input.dataset.field;
             updatedItem[field] = field === 'year' || field === 'month' ? parseInt(input.value, 10) : parseFloat(input.value);
         });
+
+        // Validar los datos antes de enviarlos
+        const requiredFields = ['year', 'month', 'company', 'netMonth', 'flexibleCompensation', 'mileage'];
+        for (const field of requiredFields) {
+            if (updatedItem[field] === undefined || updatedItem[field] === null || updatedItem[field] === '') {
+                alert(`El campo ${field} es obligatorio.`);
+                return;
+            }
+        }
 
         try {
             const token = localStorage.getItem('token');
@@ -366,15 +404,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 body: JSON.stringify(updatedItem),
             });
 
-            if (response.status === 404) {
-                console.error('El elemento con el ID especificado no existe en el servidor.');
-                alert('Error: El elemento no se encontró en el servidor. Recargando los datos...');
-                await loadData(); // Recargar la tabla para sincronizar con el servidor
-                return;
-            }
-
             if (!response.ok) {
-                throw new Error(`Error al guardar los cambios: ${response.statusText}`);
+                const errorData = await response.json();
+                throw new Error(`Error al guardar los cambios: ${errorData.error || response.statusText}`);
             }
 
             alert('Cambios guardados correctamente.');
@@ -389,10 +421,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderTable(currentPage); // Volver a renderizar la tabla para cancelar la edición
     };
 
+    const deleteRow = async (index) => {
+        const item = sortedPayroll[index];
+        if (!item || !item.id) {
+            console.error('El ID del elemento no está definido. No se puede eliminar.');
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('Usuario no autenticado. Redirigiendo al login...');
+                window.location.href = '../pages/login.html';
+                return;
+            }
+
+            const response = await fetch(`http://localhost:3000/api/payroll/${item.id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al eliminar el registro: ${response.statusText}`);
+            }
+
+            alert('Registro eliminado correctamente.');
+            await loadData(); // Recargar la tabla y la gráfica después de eliminar el registro
+        } catch (error) {
+            console.error('Error al eliminar el registro:', error);
+            alert('Hubo un problema al eliminar el registro. Por favor, inténtalo más tarde.');
+        }
+    };
+
     // Hacer que las funciones estén disponibles globalmente
     window.enableRowEdit = enableRowEdit;
     window.saveRowEdit = saveRowEdit;
     window.cancelRowEdit = cancelRowEdit;
+    window.deleteRow = deleteRow;
 
     document.querySelector('.add-payroll-btn').addEventListener('click', openModal);
     document.querySelector('.close').addEventListener('click', closeModal);

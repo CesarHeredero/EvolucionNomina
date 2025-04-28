@@ -1,0 +1,21 @@
+{
+  "name": "evolucion-nominas-backend",
+  "version": "1.0.0",
+  "description": "Backend para la gestión de nóminas con Firebase y autenticación JWT",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "migrate": "node migrate.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "firebase": "^9.22.2",
+    "jsonwebtoken": "^9.0.0",
+    "bcrypt": "^5.1.0"
+  },
+  "devDependencies": {},
+  "author": "Cesar Heredero",
+  "license": "MIT"
+}

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Nómina</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Incluir Chart.js -->
+    <script src="../assets/js/dashboard.js" defer></script> <!-- Cargar el script con defer -->
 </head>
 <body>
     <header class="menu">
@@ -104,13 +107,5 @@
             <p>Contenido para la nueva pestaña.</p>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Incluir Chart.js -->
-    <script>
-        // Hacer que las funciones estén disponibles globalmente
-        window.enableRowEdit = enableRowEdit;
-        window.saveRowEdit = saveRowEdit;
-        window.cancelRowEdit = cancelRowEdit;
-    </script>
-    <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

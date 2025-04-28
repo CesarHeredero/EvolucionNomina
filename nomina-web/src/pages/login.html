@@ -41,8 +41,6 @@
                 if (response.ok) {
                     const data = await response.json();
                     localStorage.setItem('token', data.token); // Guardar el token en localStorage
-                    console.log('Token almacenado:', data.token); // Log para depuración
-                    console.log('Redirigiendo al inicio...');
                     window.location.href = '../index.html'; // Redirigir al inicio
                 } else {
                     document.getElementById('errorMessage').style.display = 'block';

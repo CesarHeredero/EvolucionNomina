@@ -16,6 +16,7 @@ const checkSession = async () => {
 
         if (!response.ok || response.status === 401) {
             console.log('Token inválido o sesión expirada. Redirigiendo al login...');
+            localStorage.removeItem('token');
             window.location.href = 'pages/login.html';
             return false;
         }
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }).catch(err => console.error('Error al mantener la sesión activa:', err));
     };
 
-    setInterval(keepAlive, 5 * 60 * 1000);
+    setInterval(keepAlive, 5 * 60 * 1000); // Mantener la sesión activa cada 5 minutos
 });
 
 function logout() {
