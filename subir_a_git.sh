@@ -6,12 +6,7 @@ cd "$(dirname "$0")"
 if [ ! -d ".git" ]; then
     git init
     git remote add origin https://github.com/CesarHeredero/BackNomina.git
-fi
-
-# Asegurarse de que render.yaml esté incluido
-if [ -f "render.yaml" ]; then
-    git add render.yaml
-fi
+fi 
 
 git add .
 git commit -m "Actualización automática del backend"
