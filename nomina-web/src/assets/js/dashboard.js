@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td style="display: none;">${item.id}</td> <!-- ID oculto -->
+                <td style="display: none;">${item.id}</td> <!-- Mostrar el Document ID como columna oculta -->
                 <td>${item.year}</td>
                 <td>${item.month}</td>
                 <td>${item.company}</td>

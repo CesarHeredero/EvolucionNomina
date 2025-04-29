@@ -36,7 +36,7 @@ const getPayrolls = async () => {
     const payrollCollection = collection(db, 'payrolls');
     const payrollSnapshot = await getDocs(payrollCollection);
     return payrollSnapshot.docs.map(doc => ({
-        id: doc.id, // Document ID único generado por Firebase
+        id: doc.id, // Incluir el Document ID generado por Firestore
         ...doc.data(),
     }));
 };
@@ -73,7 +73,7 @@ const deletePayroll = async (id) => {
 app.get('/api/payroll', async (req, res) => {
     try {
         const payrolls = await getPayrolls();
-        res.json({ payrolls });
+        res.json({ payrolls }); // Enviar los datos con el Document ID incluido
     } catch (error) {
         console.error('Error al obtener las nóminas:', error.message);
         res.status(500).json({ error: 'Error al obtener las nóminas' });
