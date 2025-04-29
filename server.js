@@ -68,7 +68,7 @@ app.put('/api/payroll/:id', async (req, res) => {
             }
         }
     } catch (error) {
-        console.error('Error al actualizar la nómina:', error.message);
+        console.error('Error al actualizar la nómina:', error.message || error);
         res.status(500).json({ error: 'Error al actualizar la nómina' });
     }
 });
@@ -93,7 +93,7 @@ app.delete('/api/payroll/:id', async (req, res) => {
             }
         }
     } catch (error) {
-        console.error('Error al eliminar la nómina:', error.message);
+        console.error('Error al eliminar la nómina:', error.message || error);
         res.status(500).json({ error: 'Error al eliminar la nómina' });
     }
 });

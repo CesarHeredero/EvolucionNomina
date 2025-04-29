@@ -77,12 +77,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(`Error al obtener las nóminas: ${errorData.error || response.statusText}`);
+                console.error('Error al obtener las nóminas:', errorData.error || response.statusText);
+                return [];
             }
 
             const data = await response.json();
             if (!data || !Array.isArray(data.payrolls)) {
-                throw new Error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
+                console.error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
+                return [];
             }
 
             return data.payrolls;
@@ -100,7 +102,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            sortedPayroll = payrolls.sort((a, b) => {
+            sortedPayroll = payrolls.map(item => ({
+                id: item.id,
+                year: parseInt(item.year, 10),
+                month: parseInt(item.month, 10),
+                company: item.company,
+                netMonth: parseFloat(item.netMonth) || 0,
+                flexibleCompensation: parseFloat(item.flexibleCompensation) || 0,
+                mileage: parseFloat(item.mileage) || 0,
+            })).sort((a, b) => {
                 if (a.year !== b.year) {
                     return b.year - a.year; // Ordenar por año descendente
                 }
@@ -344,7 +354,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        // Actualizar los valores del elemento con los datos del formulario
         inputs.forEach(input => {
             const field = input.dataset.field;
             updatedItem[field] = field === 'year' || field === 'month' ? parseInt(input.value, 10) : parseFloat(input.value);
@@ -358,7 +367,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/payroll/${updatedItem.id}`, {
+            const response = await fetch(`https://backnomina.onrender.com/api/payroll/${updatedItem.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -369,16 +378,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                if (response.status === 404) {
-                    alert(`Error: ${errorData.error}`);
-                } else {
-                    throw new Error(`Error al guardar los cambios: ${errorData.error || response.statusText}`);
-                }
+                console.error('Error al guardar los cambios:', errorData.error || response.statusText);
+                alert(`Error: ${errorData.error || 'No se pudo guardar los cambios.'}`);
                 return;
             }
 
             alert('Cambios guardados correctamente.');
-            await loadData(); // Recargar la tabla y la gráfica después de guardar los cambios
+            await loadData();
         } catch (error) {
             console.error('Error al guardar los cambios:', error.message);
             alert('Hubo un problema al guardar los cambios. Por favor, inténtalo más tarde.');
@@ -386,7 +392,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     const cancelRowEdit = (index) => {
-        renderTable(currentPage); // Volver a renderizar la tabla para cancelar la edición
+        // Volver a renderizar la tabla para cancelar la edición
+        renderTable(currentPage);
     };
 
     const deleteRow = async (index) => {
@@ -404,7 +411,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            const response = await fetch(`http://localhost:3000/api/payroll/${item.id}`, {
+            const response = await fetch(`https://backnomina.onrender.com/api/payroll/${item.id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -413,16 +420,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                if (response.status === 404) {
-                    alert(`Error: ${errorData.error}`);
-                } else {
-                    throw new Error(`Error al eliminar el registro: ${errorData.error || response.statusText}`);
-                }
+                console.error('Error al eliminar el registro:', errorData.error || response.statusText);
+                alert(`Error: ${errorData.error || 'No se pudo eliminar el registro.'}`);
                 return;
             }
 
             alert('Registro eliminado correctamente.');
-            await loadData(); // Recargar la tabla y la gráfica después de eliminar el registro
+            await loadData();
         } catch (error) {
             console.error('Error al eliminar el registro:', error.message);
             alert('Hubo un problema al eliminar el registro. Por favor, inténtalo más tarde.');
@@ -432,7 +436,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Hacer que las funciones estén disponibles globalmente
     window.enableRowEdit = enableRowEdit;
     window.saveRowEdit = saveRowEdit;
-    window.cancelRowEdit = cancelRowEdit;
+    window.cancelRowEdit = cancelRowEdit; // Asegurarse de que esta función esté disponible globalmente
     window.deleteRow = deleteRow;
 
     document.querySelector('.add-payroll-btn').addEventListener('click', openModal);
