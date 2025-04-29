@@ -1,21 +1,61 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors'); // Importar el paquete CORS
-const { getPayrolls, addPayroll, updatePayroll, deletePayroll } = require('./firebase');
+const cors = require('cors');
+const { initializeApp } = require('firebase/app');
+const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc } = require('firebase/firestore');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
 const app = express();
 
 // Configurar CORS
 app.use(cors({
-    origin: '*', // Cambiar '*' por el dominio del frontend si es necesario
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Middleware
 app.use(express.json());
+
+// Funciones auxiliares para Firestore
+const getPayrolls = async () => {
+    const payrollCollection = collection(db, 'payrolls');
+    const payrollSnapshot = await getDocs(payrollCollection);
+    return payrollSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+};
+
+const addPayroll = async (payroll) => {
+    const payrollCollection = collection(db, 'payrolls');
+    const docRef = await addDoc(payrollCollection, payroll);
+    return docRef.id;
+};
+
+const updatePayroll = async (id, updatedPayroll) => {
+    const payrollDoc = doc(db, 'payrolls', id);
+    await updateDoc(payrollDoc, updatedPayroll);
+};
+
+const deletePayroll = async (id) => {
+    const payrollDoc = doc(db, 'payrolls', id);
+    await deleteDoc(payrollDoc);
+};
 
 // Rutas
 app.get('/api/payroll', async (req, res) => {
@@ -24,16 +64,17 @@ app.get('/api/payroll', async (req, res) => {
         res.json({ payrolls });
     } catch (error) {
         console.error('Error al obtener las nóminas:', error.message);
-        res.status(500).json({ error: 'Error al obtener las nóminas' });  // pr
+        res.status(500).json({ error: 'Error al obtener las nóminas' });
     }
 });
 
 app.post('/api/payroll', async (req, res) => {
     try {
         const newPayroll = req.body;
-        const docRef = await addPayroll(newPayroll);
-        res.status(201).json({ id: docRef.id }); // Devolver el ID generado por Firebase
+        const id = await addPayroll(newPayroll);
+        res.status(201).json({ id });
     } catch (error) {
+        console.error('Error al añadir la nómina:', error.message);
         res.status(500).json({ error: 'Error al añadir la nómina' });
     }
 });
@@ -48,19 +89,15 @@ app.put('/api/payroll/:id', async (req, res) => {
         }
 
         try {
-            await updatePayroll(id, updatedPayroll); // Usar el Document ID
+            await updatePayroll(id, updatedPayroll);
             res.status(200).json({ message: 'Nómina actualizada correctamente' });
         } catch (error) {
-            if (error.code === 'not-found') {
-                console.log('Documento no encontrado. No se puede actualizar.');
-                return res.status(404).json({ error: 'Documento no encontrado. No se puede actualizar.' });
-            } else {
-                throw error;
-            }
+            console.error('Error al actualizar la nómina:', error.message);
+            res.status(500).json({ error: 'Error al actualizar la nómina' });
         }
     } catch (error) {
-        console.error('Error al actualizar la nómina:', error.message || error);
-        res.status(500).json({ error: 'Error al actualizar la nómina' });
+        console.error('Error al procesar la solicitud:', error.message);
+        res.status(500).json({ error: 'Error al procesar la solicitud' });
     }
 });
 
@@ -73,19 +110,15 @@ app.delete('/api/payroll/:id', async (req, res) => {
         }
 
         try {
-            await deletePayroll(id); // Usar el Document ID
+            await deletePayroll(id);
             res.status(200).json({ message: 'Nómina eliminada correctamente' });
         } catch (error) {
-            if (error.code === 'not-found') {
-                console.log(`Documento con ID ${id} no encontrado. No se puede eliminar.`);
-                return res.status(404).json({ error: 'Documento no encontrado. No se puede eliminar.' });
-            } else {
-                throw error;
-            }
+            console.error('Error al eliminar la nómina:', error.message);
+            res.status(500).json({ error: 'Error al eliminar la nómina' });
         }
     } catch (error) {
-        console.error('Error al eliminar la nómina:', error.message || error);
-        res.status(500).json({ error: 'Error al eliminar la nómina' });
+        console.error('Error al procesar la solicitud:', error.message);
+        res.status(500).json({ error: 'Error al procesar la solicitud' });
     }
 });
 
@@ -94,29 +127,23 @@ app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        // Credenciales predeterminadas
         const defaultUser = {
             username: 'admin',
-            password: bcrypt.hashSync('1234', 10), // Usar bcryptjs para generar el hash
+            password: bcrypt.hashSync('1234', 10),
         };
 
-        console.log('Intentando iniciar sesión con:', username, password);
-
-        // Verificar credenciales
         if (username === defaultUser.username && bcrypt.compareSync(password, defaultUser.password)) {
             const token = jwt.sign(
-                { username: defaultUser.username, role: 'admin' }, // Agregar un nuevo campo al payload
-                process.env.JWT_SECRET, 
-                { expiresIn: '2h' } // Cambiar la duración del token
+                { username: defaultUser.username, role: 'admin' },
+                process.env.JWT_SECRET,
+                { expiresIn: '2h' }
             );
-            console.log('Inicio de sesión exitoso. Token generado:', token);
             return res.json({ token });
         }
 
-        console.log('Credenciales incorrectas');
         return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
     } catch (error) {
-        console.error('Error al iniciar sesión:', error);
+        console.error('Error al iniciar sesión:', error.message);
         res.status(500).json({ error: 'Error al iniciar sesión' });
     }
 });
@@ -133,7 +160,7 @@ app.get('/api/authenticated', (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         res.json({ user: decoded });
     } catch (error) {
-        console.error('Error al verificar el token:', error);
+        console.error('Error al verificar el token:', error.message);
         res.status(401).json({ error: 'Token inválido o expirado' });
     }
 });
@@ -150,7 +177,7 @@ app.get('/api/keep-alive', (req, res) => {
         jwt.verify(token, process.env.JWT_SECRET);
         res.status(200).json({ message: 'Sesión activa' });
     } catch (error) {
-        console.error('Error al mantener la sesión activa:', error);
+        console.error('Error al mantener la sesión activa:', error.message);
         res.status(401).json({ error: 'Token inválido o expirado' });
     }
 });
