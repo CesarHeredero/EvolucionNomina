@@ -12,19 +12,19 @@ git add .
 git commit -m "Actualización automática del backend"
 git push origin main
 
-# Subir cambios del frontend
-echo "Subiendo cambios del frontend..."
-cd "$(dirname "$0")/nomina-web"
-if [ ! -d ".git" ]; then
-    git init
-    git remote add origin https://github.com/CesarHeredero/EvolucionNomina.git
-fi
+# # Subir cambios del frontend
+# echo "Subiendo cambios del frontend..."
+# cd "$(dirname "$0")/nomina-web"
+# if [ ! -d ".git" ]; then
+#     git init
+#     git remote add origin https://github.com/CesarHeredero/EvolucionNomina.git
+# fi
 
-git add .
-git commit -m "Actualización automática del frontend"
-git push origin main
+# git add .
+# git commit -m "Actualización automática del frontend"
+# git push origin main
 
-echo "Subida completada para backend y frontend."
+# echo "Subida completada para backend y frontend."
 
 ## ejecutar el script
 # cd "/Users/cesarheredero/Desktop/Cesar/evolución nominas"
