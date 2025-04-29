@@ -5,7 +5,7 @@ services:
     region: oregon
     buildCommand: "npm install"
     startCommand: "npm start"
-    runtime: node 22.14.0 # Especificar la versión de Node.js
+    runtime: node 18 # Cambiar a una versión estable y compatible
     envVars:
       - key: FIREBASE_API_KEY
         value: YOUR_FIREBASE_API_KEY
