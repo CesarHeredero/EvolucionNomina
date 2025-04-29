@@ -76,14 +76,44 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             if (!response.ok) {
-                throw new Error(`Error al obtener las nóminas: ${response.statusText}`);
+                const errorData = await response.json();
+                throw new Error(`Error al obtener las nóminas: ${errorData.error || response.statusText}`);
             }
 
             const data = await response.json();
-            return data.payrolls || [];
+            if (!data || !Array.isArray(data.payrolls)) {
+                throw new Error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
+            }
+
+            return data.payrolls;
         } catch (error) {
-            console.error('Error al obtener las nóminas:', error);
+            console.error('Error al obtener las nóminas:', error.message);
             return [];
+        }
+    };
+
+    const loadData = async () => {
+        try {
+            const payrolls = await fetchPayrolls();
+            if (!payrolls.length) {
+                tableBody.innerHTML = '<tr><td colspan="8">No hay datos disponibles</td></tr>';
+                return;
+            }
+
+            sortedPayroll = payrolls.sort((a, b) => {
+                if (a.year !== b.year) {
+                    return b.year - a.year; // Ordenar por año descendente
+                }
+                return b.month - a.month; // Ordenar por mes descendente
+            });
+
+            const totalPages = Math.ceil(sortedPayroll.length / recordsPerPage);
+            renderTable(currentPage);
+            renderPaginationControls(totalPages);
+            renderChart(sortedPayroll); // Renderizar la gráfica con los datos
+        } catch (error) {
+            console.error('Error al cargar los datos:', error.message);
+            tableBody.innerHTML = '<tr><td colspan="8">Error al cargar los datos. Por favor, inténtalo más tarde.</td></tr>';
         }
     };
 
@@ -222,58 +252,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
         });
-    };
-
-    const loadData = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                console.error('Usuario no autenticado. Redirigiendo al login...');
-                window.location.href = '../pages/login.html';
-                return;
-            }
-
-            const response = await fetch('http://localhost:3000/api/payroll', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`Error al cargar los datos: ${errorData.error || response.statusText}`);
-            }
-
-            const data = await response.json();
-            if (!data || !Array.isArray(data.payrolls)) {
-                throw new Error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
-            }
-
-            // Actualizar la tabla con los datos obtenidos
-            sortedPayroll = data.payrolls.map(item => ({
-                id: item.id,
-                year: parseInt(item.year, 10),
-                month: parseInt(item.month, 10),
-                company: item.company,
-                netMonth: parseFloat(item.netMonth) || 0,
-                flexibleCompensation: parseFloat(item.flexibleCompensation) || 0,
-                mileage: parseFloat(item.mileage) || 0,
-            })).sort((a, b) => {
-                if (a.year !== b.year) {
-                    return b.year - a.year; // Ordenar por año descendente
-                }
-                return b.month - a.month; // Ordenar por mes descendente
-            });
-
-            const totalPages = Math.ceil(sortedPayroll.length / recordsPerPage);
-            renderTable(currentPage);
-            renderPaginationControls(totalPages);
-            renderChart(sortedPayroll); // Renderizar la gráfica con los datos
-        } catch (error) {
-            console.error('Error al cargar los datos:', error.message);
-            tableBody.innerHTML = '<tr><td colspan="8">Error al cargar los datos. Por favor, inténtalo más tarde.</td></tr>';
-        }
     };
 
     const openModal = () => {
