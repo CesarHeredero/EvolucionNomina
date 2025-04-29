@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             return data.payrolls.map(item => ({
-                id: item.id, // Document ID de Firestore
+                id: item.id, // Usar siempre el Document ID generado por Firestore
                 ...item,
             }));
         } catch (error) {

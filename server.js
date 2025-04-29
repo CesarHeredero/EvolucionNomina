@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, getDoc } = require('firebase/firestore');
+const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, getDoc, collectionGroup } = require('firebase/firestore');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -33,39 +33,50 @@ app.use(express.json());
 
 // Funciones auxiliares para Firestore
 const getPayrolls = async () => {
-    const payrollCollection = collection(db, 'payrolls');
+    const payrollCollection = collectionGroup(db, 'fields'); // Acceder al tercer nivel
     const payrollSnapshot = await getDocs(payrollCollection);
     return payrollSnapshot.docs.map(doc => ({
-        id: doc.id, // Incluir el Document ID generado por Firestore
+        id: doc.ref.parent.parent.id, // Usar el ID del documento del segundo nivel
         ...doc.data(),
     }));
 };
 
 const addPayroll = async (payroll) => {
-    const payrollCollection = collection(db, 'payrolls');
-    const docRef = await addDoc(payrollCollection, payroll);
-    return docRef.id; // Retorna el ID único del documento
+    const payrollCollection = collection(db, 'payrolls'); // Segundo nivel
+    const docRef = await addDoc(payrollCollection, {}); // Crear un documento vacío en el segundo nivel
+    const fieldsCollection = collection(docRef, 'fields'); // Tercer nivel
+    await addDoc(fieldsCollection, payroll); // Agregar los campos en el tercer nivel
+    return docRef.id; // Retorna el ID del documento del segundo nivel
 };
 
 const updatePayroll = async (id, updatedPayroll) => {
-    const payrollDoc = doc(db, 'payrolls', id);
-    const docSnapshot = await getDoc(payrollDoc);
+    const payrollDoc = doc(db, 'payrolls', id); // Segundo nivel
+    const fieldsCollection = collection(payrollDoc, 'fields'); // Tercer nivel
+    const fieldsSnapshot = await getDocs(fieldsCollection);
 
-    if (!docSnapshot.exists()) {
+    if (fieldsSnapshot.empty) {
         throw { code: 'not-found', message: 'Documento no encontrado. No se puede actualizar.' };
     }
 
-    await updateDoc(payrollDoc, updatedPayroll);
+    const fieldDoc = fieldsSnapshot.docs[0].ref; // Asumimos que hay un único documento en el tercer nivel
+    await updateDoc(fieldDoc, updatedPayroll);
 };
 
 const deletePayroll = async (id) => {
-    const payrollDoc = doc(db, 'payrolls', id);
-    const docSnapshot = await getDoc(payrollDoc);
+    const payrollDoc = doc(db, 'payrolls', id); // Segundo nivel
+    const fieldsCollection = collection(payrollDoc, 'fields'); // Tercer nivel
+    const fieldsSnapshot = await getDocs(fieldsCollection);
 
-    if (!docSnapshot.exists()) {
+    if (fieldsSnapshot.empty) {
         throw { code: 'not-found', message: 'Documento no encontrado. No se puede eliminar.' };
     }
 
+    // Eliminar todos los documentos en el tercer nivel
+    for (const fieldDoc of fieldsSnapshot.docs) {
+        await deleteDoc(fieldDoc.ref);
+    }
+
+    // Eliminar el documento del segundo nivel
     await deleteDoc(payrollDoc);
 };
 
@@ -73,7 +84,7 @@ const deletePayroll = async (id) => {
 app.get('/api/payroll', async (req, res) => {
     try {
         const payrolls = await getPayrolls();
-        res.json({ payrolls }); // Enviar los datos con el Document ID incluido
+        res.json({ payrolls });
     } catch (error) {
         console.error('Error al obtener las nóminas:', error.message);
         res.status(500).json({ error: 'Error al obtener las nóminas' });
