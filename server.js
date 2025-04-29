@@ -2,10 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors'); // Importar el paquete CORS
 const { getPayrolls, addPayroll, updatePayroll, deletePayroll } = require('./firebase');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { getFirestore, collection, getDocs, query, where } = require('firebase/firestore');
-const db = require('./firebase');
 
 const app = express();
 
