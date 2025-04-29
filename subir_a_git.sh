@@ -1,22 +1,35 @@
 #!/bin/bash
 
-# Navegar al directorio del proyecto
-cd "$(dirname "$0")"
-
-# Inicializar el repositorio Git si no está inicializado
+# Subir cambios del backend
+echo "Subiendo cambios del backend..."
+cd "$(dirname "$0")/backend"
 if [ ! -d ".git" ]; then
     git init
+    git remote add origin https://github.com/CesarHeredero/BackNomina.git
 fi
 
-# Agregar todos los cambios al área de preparación
+# Asegurarse de que render.yaml esté incluido
+if [ -f "render.yaml" ]; then
+    git add render.yaml
+fi
+
 git add .
+git commit -m "Actualización automática del backend"
+git push origin main
 
-# Crear un commit con un mensaje predeterminado
-git commit -m "Actualización automática de archivos"
+# Subir cambios del frontend
+echo "Subiendo cambios del frontend..."
+cd "$(dirname "$0")/nomina-web"
+if [ ! -d ".git" ]; then
+    git init
+    git remote add origin https://github.com/CesarHeredero/EvolucionNomina.git
+fi
 
-# Subir los cambios al repositorio remoto
-git push
+git add .
+git commit -m "Actualización automática del frontend"
+git push origin main
 
+echo "Subida completada para backend y frontend."
 
 ## ejecutar el script
 # cd "/Users/cesarheredero/Desktop/Cesar/evolución nominas"

@@ -1,172 +1,172 @@
+require('dotenv').config();
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const cors = require('cors');
+const cors = require('cors'); // Importar el paquete CORS
+const { getPayrolls, addPayroll, updatePayroll, deletePayroll } = require('./firebase');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { getFirestore, collection, getDocs, query, where } = require('firebase/firestore');
+const db = require('./firebase');
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Cambiar el puerto si es necesarioss.env.PORT || 3001; // Cambiar a 3001 si 3000 está en uso
-const JWT_SECRET = 'secret-key'; // Cambiar por una clave segura
 
-// Middleware para habilitar CORS
-const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5501'];
-
+// Configurar CORS
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, origin); // Permitir el origen
-    } else {
-      callback(new Error('No permitido por CORS'));
-    }
-  },
-  credentials: true,
+    origin: '*', // Permitir solicitudes desde cualquier origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 }));
 
-// Middleware para parsear JSON
+// Middleware
 app.use(express.json());
 
-// Usuarios simulados
-const users = [
-  { username: 'admin', password: '1234' },
-];
-
-// Ruta para manejar el login
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-
-  console.log('Intento de login:', username);
-
-  const user = users.find(u => u.username === username && u.password === password);
-  if (user) {
-    const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '1h' });
-    console.log('Login exitoso:', username);
-    res.status(200).json({ message: 'Login exitoso', token });
-  } else {
-    console.log('Credenciales incorrectas:', username);
-    res.status(401).json({ error: 'Credenciales incorrectas' });
-  }
-});
-
-// Middleware para verificar el token JWT
-const isAuthenticated = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    console.log('Falta el encabezado Authorization'); // Log para depuración
-    return res.status(401).json({ error: 'No autorizado' });
-  }
-
-  const token = authHeader.split(' ')[1];
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      console.log('Token inválido o expirado'); // Log para depuración
-      return res.status(403).json({ error: 'Token inválido o expirado' });
-    }
-    req.user = user; // Adjuntar el usuario al objeto de la solicitud
-    console.log('Token válido. Usuario autenticado:', user.username); // Log para depuración
-    next();
-  });
-};
-
-// Ruta para verificar si el usuario está autenticado
-app.get('/api/authenticated', isAuthenticated, (req, res) => {
-  console.log('Usuario autenticado:', req.user.username);
-  res.status(200).json({ authenticated: true });
-});
-
-// Proteger las rutas de la API
-app.use('/api/payroll', isAuthenticated);
-
-// Ruta para guardar datos en payroll.json
-app.post('/api/payroll', (req, res) => {
-  const newPayrollData = req.body;
-
-  console.log('Datos recibidos:', newPayrollData);
-
-  if (!newPayrollData || Object.keys(newPayrollData).length === 0) {
-    return res.status(400).json({ error: 'El cuerpo de la solicitud está vacío o es inválido' });
-  }
-
-  const filePath = path.join(__dirname, 'nomina-web/src/data/payroll.json');
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error al leer el archivo:', err);
-      return res.status(500).json({ error: 'Error al leer el archivo' });
-    }
-
-    let payroll = [];
+// Rutas
+app.get('/api/payroll', async (req, res) => {
     try {
-      payroll = JSON.parse(data).payroll || [];
-    } catch (parseErr) {
-      console.error('Error al parsear el archivo:', parseErr);
-      return res.status(500).json({ error: 'Error al parsear el archivo' });
+        const payrolls = await getPayrolls();
+        res.json({ payrolls });
+    } catch (error) {
+        console.error('Error al obtener las nóminas:', error.message);
+        res.status(500).json({ error: 'Error al obtener las nóminas' });
     }
-
-    payroll.push(newPayrollData);
-
-    const updatedData = JSON.stringify({ payroll }, null, 2);
-    fs.writeFile(filePath, updatedData, 'utf8', (writeErr) => {
-      if (writeErr) {
-        console.error('Error al escribir en el archivo:', writeErr);
-        return res.status(500).json({ error: 'Error al escribir en el archivo' });
-      }
-
-      res.status(200).json({ message: 'Datos guardados correctamente' });
-    });
-  });
 });
 
-// Ruta para obtener los datos de payroll.json
-app.get('/api/payroll', (req, res) => {
-  const filePath = path.join(__dirname, 'nomina-web/src/data/payroll.json');
-
-  console.log('Solicitud GET a /api/payroll');
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error al leer el archivo:', err);
-      return res.status(500).json({ error: 'Error al leer el archivo' });
+app.post('/api/payroll', async (req, res) => {
+    try {
+        const newPayroll = req.body;
+        const docRef = await addPayroll(newPayroll);
+        res.status(201).json({ id: docRef.id }); // Devolver el ID generado por Firebase
+    } catch (error) {
+        res.status(500).json({ error: 'Error al añadir la nómina' });
     }
+});
+
+app.put('/api/payroll/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedPayroll = req.body;
+
+        if (!id || !updatedPayroll) {
+            return res.status(400).json({ error: 'ID o datos de nómina no proporcionados' });
+        }
+
+        // Validar que los campos requeridos estén presentes
+        const requiredFields = ['year', 'month', 'company', 'netMonth', 'flexibleCompensation', 'mileage'];
+        for (const field of requiredFields) {
+            if (!(field in updatedPayroll)) {
+                return res.status(400).json({ error: `El campo ${field} es obligatorio.` });
+            }
+        }
+
+        // Intentar actualizar el documento
+        try {
+            await updatePayroll(id, updatedPayroll);
+            res.status(200).json({ message: 'Nómina actualizada correctamente' });
+        } catch (error) {
+            if (error.code === 'not-found') {
+                console.log('Documento no encontrado. No se puede actualizar.');
+                return res.status(404).json({ error: 'Documento no encontrado. No se puede actualizar.' });
+            } else {
+                throw error;
+            }
+        }
+    } catch (error) {
+        console.error('Error al actualizar la nómina:', error.message);
+        res.status(500).json({ error: 'Error al actualizar la nómina' });
+    }
+});
+
+app.delete('/api/payroll/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ error: 'ID no proporcionado' });
+        }
+
+        try {
+            await deletePayroll(id);
+            res.status(200).json({ message: 'Nómina eliminada correctamente' });
+        } catch (error) {
+            if (error.code === 'not-found') {
+                console.log('Documento no encontrado. No se puede eliminar.');
+                return res.status(404).json({ error: 'Documento no encontrado. No se puede eliminar.' });
+            } else {
+                throw error;
+            }
+        }
+    } catch (error) {
+        console.error('Error al eliminar la nómina:', error.message);
+        res.status(500).json({ error: 'Error al eliminar la nómina' });
+    }
+});
+
+// Ruta para iniciar sesión
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
 
     try {
-      const payroll = JSON.parse(data);
-      console.log('Datos enviados:', payroll);
-      res.status(200).json(payroll);
-    } catch (parseErr) {
-      console.error('Error al parsear el archivo:', parseErr);
-      res.status(500).json({ error: 'Error al parsear el archivo' });
+        // Credenciales predeterminadas
+        const defaultUser = {
+            username: 'admin',
+            password: '1234', // Contraseña sin cifrar para este ejemplo
+        };
+
+        console.log('Intentando iniciar sesión con:', username, password);
+
+        // Verificar credenciales
+        if (username === defaultUser.username && password === defaultUser.password) {
+            const token = jwt.sign(
+                { username: defaultUser.username, role: 'admin' }, // Agregar un nuevo campo al payload
+                process.env.JWT_SECRET, 
+                { expiresIn: '2h' } // Cambiar la duración del token
+            );
+            console.log('Inicio de sesión exitoso. Token generado:', token);
+            return res.json({ token });
+        }
+
+        console.log('Credenciales incorrectas');
+        return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        res.status(500).json({ error: 'Error al iniciar sesión' });
     }
-  });
 });
 
-// Ruta para obtener los detalles de una nómina específica
-app.get('/api/payroll/:id', isAuthenticated, (req, res) => {
-  const payrollId = parseInt(req.params.id, 10);
-  const filePath = path.join(__dirname, 'nomina-web/src/data/payroll.json');
+// Ruta para verificar si el token es válido
+app.get('/api/authenticated', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error al leer el archivo:', err);
-      return res.status(500).json({ error: 'Error al leer el archivo' });
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
     }
 
     try {
-      const payrolls = JSON.parse(data).payroll || [];
-      const payroll = payrolls[payrollId];
-
-      if (!payroll) {
-        return res.status(404).json({ error: 'Nómina no encontrada' });
-      }
-
-      res.status(200).json(payroll);
-    } catch (parseErr) {
-      console.error('Error al parsear el archivo:', parseErr);
-      res.status(500).json({ error: 'Error al parsear el archivo' });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        res.json({ user: decoded });
+    } catch (error) {
+        console.error('Error al verificar el token:', error);
+        res.status(401).json({ error: 'Token inválido o expirado' });
     }
-  });
 });
 
-// Iniciar el servidor
+// Ruta para mantener la sesión activa
+app.get('/api/keep-alive', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
+    }
+
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        res.status(200).json({ message: 'Sesión activa' });
+    } catch (error) {
+        console.error('Error al mantener la sesión activa:', error);
+        res.status(401).json({ error: 'Token inválido o expirado' });
+    }
+});
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

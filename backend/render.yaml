@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: evolucion-nominas-backend
+    env: node
+    region: oregon
+    rootDir: ./ # Asegúrate de que Render use la carpeta actual como raíz
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: FIREBASE_API_KEY
+        value: ${FIREBASE_API_KEY}
+      - key: FIREBASE_AUTH_DOMAIN
+        value: ${FIREBASE_AUTH_DOMAIN}
+      - key: FIREBASE_PROJECT_ID
+        value: ${FIREBASE_PROJECT_ID}
+      - key: FIREBASE_STORAGE_BUCKET
+        value: ${FIREBASE_STORAGE_BUCKET}
+      - key: FIREBASE_MESSAGING_SENDER_ID
+        value: ${FIREBASE_MESSAGING_SENDER_ID}
+      - key: FIREBASE_APP_ID
+        value: ${FIREBASE_APP_ID}
+      - key: JWT_SECRET
+        value: ${JWT_SECRET}
+      - key: PORT
+        value: ${PORT}
