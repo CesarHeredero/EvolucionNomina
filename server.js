@@ -47,17 +47,8 @@ app.put('/api/payroll/:id', async (req, res) => {
             return res.status(400).json({ error: 'ID o datos de nómina no proporcionados' });
         }
 
-        // Validar que los campos requeridos estén presentes
-        const requiredFields = ['year', 'month', 'company', 'netMonth', 'flexibleCompensation', 'mileage'];
-        for (const field of requiredFields) {
-            if (!(field in updatedPayroll)) {
-                return res.status(400).json({ error: `El campo ${field} es obligatorio.` });
-            }
-        }
-
-        // Intentar actualizar el documento
         try {
-            await updatePayroll(id, updatedPayroll);
+            await updatePayroll(id, updatedPayroll); // Usar el Document ID
             res.status(200).json({ message: 'Nómina actualizada correctamente' });
         } catch (error) {
             if (error.code === 'not-found') {
@@ -82,11 +73,11 @@ app.delete('/api/payroll/:id', async (req, res) => {
         }
 
         try {
-            await deletePayroll(id);
+            await deletePayroll(id); // Usar el Document ID
             res.status(200).json({ message: 'Nómina eliminada correctamente' });
         } catch (error) {
             if (error.code === 'not-found') {
-                console.log('Documento no encontrado. No se puede eliminar.');
+                console.log(`Documento con ID ${id} no encontrado. No se puede eliminar.`);
                 return res.status(404).json({ error: 'Documento no encontrado. No se puede eliminar.' });
             } else {
                 throw error;

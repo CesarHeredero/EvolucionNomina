@@ -1,5 +1,5 @@
 const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc } = require('firebase/firestore');
+const { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc } = require('firebase/firestore');
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -21,7 +21,7 @@ const getPayrolls = async () => {
         const payrollCollection = collection(db, 'payrolls');
         const payrollSnapshot = await getDocs(payrollCollection);
         return payrollSnapshot.docs.map(doc => ({
-            id: doc.id, // Usar el ID generado por Firebase
+            reference: doc.ref, // Usar la referencia del documento
             ...doc.data(),
         }));
     } catch (error) {
@@ -33,43 +33,27 @@ const getPayrolls = async () => {
 const addPayroll = async (payroll) => {
     try {
         const payrollCollection = collection(db, 'payrolls');
-        return await addDoc(payrollCollection, payroll); // Dejar que Firebase genere el ID
+        return await addDoc(payrollCollection, payroll); // Dejar que Firestore genere la referencia
     } catch (error) {
         console.error('Error al añadir la nómina:', error.message);
         throw new Error('Error al añadir la nómina');
     }
 };
 
-const updatePayroll = async (id, updatedPayroll) => {
+const updatePayroll = async (reference, updatedPayroll) => {
     try {
-        const payrollDoc = doc(db, 'payrolls', id); // Usar el ID generado por Firebase
-        const payrollSnapshot = await getDocs(collection(db, 'payrolls'));
-
-        // Verificar si el documento existe antes de actualizar
-        const exists = payrollSnapshot.docs.some(doc => doc.id === id);
-        if (!exists) {
-            throw { code: 'not-found', message: 'Documento no encontrado. No se puede actualizar.' };
-        }
-
-        await updateDoc(payrollDoc, updatedPayroll);
+        await updateDoc(reference, updatedPayroll); // Usar la referencia para actualizar
+        console.log('Documento actualizado correctamente.');
     } catch (error) {
         console.error('Error al actualizar el documento en Firestore:', error.message || error);
         throw error;
     }
 };
 
-const deletePayroll = async (id) => {
+const deletePayroll = async (reference) => {
     try {
-        const payrollDoc = doc(db, 'payrolls', id); // Usar el ID generado por Firebase
-        const payrollSnapshot = await getDocs(collection(db, 'payrolls'));
-
-        // Verificar si el documento existe antes de eliminar
-        const exists = payrollSnapshot.docs.some(doc => doc.id === id);
-        if (!exists) {
-            throw { code: 'not-found', message: 'Documento no encontrado. No se puede eliminar.' };
-        }
-
-        await deleteDoc(payrollDoc);
+        await deleteDoc(reference); // Usar la referencia para eliminar
+        console.log('Documento eliminado correctamente.');
     } catch (error) {
         console.error('Error al eliminar el documento en Firestore:', error.message || error);
         throw error;

@@ -87,7 +87,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return [];
             }
 
-            return data.payrolls;
+            return data.payrolls.map(item => ({
+                id: item.id, // Document ID de Firestore
+                ...item,
+            }));
         } catch (error) {
             console.error('Error al obtener las nóminas:', error.message);
             return [];
@@ -349,8 +352,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const updatedItem = { ...sortedPayroll[index] };
 
         if (!updatedItem.id) {
-            console.error('El ID del elemento no está definido. No se puede guardar la edición.');
-            alert('Error: No se puede guardar la edición porque falta el ID del elemento.');
+            console.error('El ID del documento no está definido. No se puede guardar la edición.');
+            alert('Error: No se puede guardar la edición porque falta el ID del documento.');
             return;
         }
 
@@ -399,7 +402,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const deleteRow = async (index) => {
         const item = sortedPayroll[index];
         if (!item || !item.id) {
-            console.error('El ID del elemento no está definido. No se puede eliminar.');
+            console.error('El ID del documento no está definido. No se puede eliminar.');
+            alert('Error: No se puede eliminar el registro porque falta el ID del documento.');
             return;
         }
 
@@ -426,7 +430,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             alert('Registro eliminado correctamente.');
-            await loadData();
+            await loadData(); // Recargar la tabla después de eliminar el registro
         } catch (error) {
             console.error('Error al eliminar el registro:', error.message);
             alert('Hubo un problema al eliminar el registro. Por favor, inténtalo más tarde.');
