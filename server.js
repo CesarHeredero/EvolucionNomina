@@ -24,7 +24,7 @@ app.get('/api/payroll', async (req, res) => {
         res.json({ payrolls });
     } catch (error) {
         console.error('Error al obtener las nóminas:', error.message);
-        res.status(500).json({ error: 'Error al obtener las nóminas' });
+        res.status(500).json({ error: 'Error al obtener las nóminas' });  // pr
     }
 });
 
