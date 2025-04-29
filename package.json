@@ -19,5 +19,5 @@
     "jsonwebtoken": "^9.0.0"
   },
   "author": "Cesar Heredero",
-  "license": "MITa"
+  "license": "MIT"
 }
