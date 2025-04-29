@@ -88,8 +88,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             return data.payrolls.map(item => ({
-                id: item.id, // Usar siempre el Document ID generado por Firestore
-                ...item,
+                id: item.id, // Usar siempre el Document ID del segundo nivel
+                ...item, // Campos del tercer nivel
             }));
         } catch (error) {
             console.error('Error al obtener las nóminas:', error.message);

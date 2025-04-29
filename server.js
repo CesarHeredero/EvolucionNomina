@@ -33,12 +33,30 @@ app.use(express.json());
 
 // Funciones auxiliares para Firestore
 const getPayrolls = async () => {
-    const payrollCollection = collectionGroup(db, 'fields'); // Acceder al tercer nivel
-    const payrollSnapshot = await getDocs(payrollCollection);
-    return payrollSnapshot.docs.map(doc => ({
-        id: doc.ref.parent.parent.id, // Usar el ID del documento del segundo nivel
-        ...doc.data(),
-    }));
+    try {
+        const payrollCollection = collection(db, 'payrolls'); // Segundo nivel
+        const payrollSnapshot = await getDocs(payrollCollection);
+
+        const payrolls = await Promise.all(
+            payrollSnapshot.docs.map(async (doc) => {
+                const fieldsCollection = collection(doc.ref, 'fields'); // Tercer nivel
+                const fieldsSnapshot = await getDocs(fieldsCollection);
+
+                // Asumimos que hay un único documento en el tercer nivel
+                const fieldsData = fieldsSnapshot.docs.map(fieldDoc => ({
+                    id: doc.id, // ID del documento del segundo nivel
+                    ...fieldDoc.data(), // Datos del tercer nivel
+                }));
+
+                return fieldsData[0]; // Retornar el único documento de los campos
+            })
+        );
+
+        return payrolls.filter(Boolean); // Filtrar cualquier valor nulo o indefinido
+    } catch (error) {
+        console.error('Error al obtener las nóminas:', error.message);
+        throw new Error('Error al obtener las nóminas');
+    }
 };
 
 const addPayroll = async (payroll) => {
