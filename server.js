@@ -9,7 +9,7 @@ const app = express();
 
 // Configurar CORS
 app.use(cors({
-    origin: '*', // Permitir solicitudes desde cualquier origen
+    origin: '*', // Cambiar '*' por el dominio del frontend si es necesario
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 }));

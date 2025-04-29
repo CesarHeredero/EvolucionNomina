@@ -142,7 +142,7 @@ app.get('/api/authenticated', (req, res) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        res.json({ user: decoded });
+        res.json({ user: decoded }); // Devolver información del usuario autenticado
     } catch (error) {
         console.error('Error al verificar el token:', error);
         res.status(401).json({ error: 'Token inválido o expirado' });

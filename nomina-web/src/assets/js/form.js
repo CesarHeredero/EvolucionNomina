@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Enviar los datos al servidor
-            const response = await fetch('http://localhost:3000/api/payroll', {
+            const response = await fetch('https://backnomina.onrender.com/api/payroll', { // Cambiar URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

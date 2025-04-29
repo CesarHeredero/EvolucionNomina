@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/authenticated', {
+            const response = await fetch('https://backnomina.onrender.com/api/authenticated', { // Cambiar URL
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok || response.status === 401) {
                 console.log('Token inválido o sesión expirada. Redirigiendo al login...');
+                localStorage.removeItem('token');
                 window.location.href = '../pages/login.html';
                 return false;
             }
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!(await checkSession())) return;
 
     const keepAlive = () => {
-        fetch('http://localhost:3000/api/keep-alive', {
+        fetch('https://backnomina.onrender.com/api/keep-alive', { // Cambiar URL
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return [];
             }
 
-            const response = await fetch('http://localhost:3000/api/payroll', {
+            const response = await fetch('https://backnomina.onrender.com/api/payroll', { // Cambiar URL
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
