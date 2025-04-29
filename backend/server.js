@@ -11,7 +11,7 @@ const app = express();
 
 // Configurar CORS
 app.use(cors({
-    origin: 'http://127.0.0.1:5501', // Permitir solicitudes solo desde este origen
+    origin: '*', // Permitir solicitudes desde cualquier origen
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 }));
@@ -25,7 +25,7 @@ app.get('/api/payroll', async (req, res) => {
         const payrolls = await getPayrolls();
         res.json({ payrolls });
     } catch (error) {
-        console.error('Error al obtener las nóminas:', error);
+        console.error('Error al obtener las nóminas:', error.message);
         res.status(500).json({ error: 'Error al obtener las nóminas' });
     }
 });
@@ -34,7 +34,7 @@ app.post('/api/payroll', async (req, res) => {
     try {
         const newPayroll = req.body;
         const docRef = await addPayroll(newPayroll);
-        res.status(201).json({ id: docRef.id });
+        res.status(201).json({ id: docRef.id }); // Devolver el ID generado por Firebase
     } catch (error) {
         res.status(500).json({ error: 'Error al añadir la nómina' });
     }
@@ -57,24 +57,20 @@ app.put('/api/payroll/:id', async (req, res) => {
             }
         }
 
-        // Asegurarse de que los valores sean del tipo correcto
-        updatedPayroll.year = parseInt(updatedPayroll.year, 10);
-        updatedPayroll.month = parseInt(updatedPayroll.month, 10);
-        updatedPayroll.netMonth = parseFloat(updatedPayroll.netMonth);
-        updatedPayroll.flexibleCompensation = parseFloat(updatedPayroll.flexibleCompensation);
-        updatedPayroll.mileage = parseFloat(updatedPayroll.mileage);
-
-        // Validar que el ID exista en la base de datos
-        const payrollExists = await getPayrolls();
-        const payroll = payrollExists.find(p => p.id === id);
-        if (!payroll) {
-            return res.status(404).json({ error: 'La nómina con el ID especificado no existe.' });
+        // Intentar actualizar el documento
+        try {
+            await updatePayroll(id, updatedPayroll);
+            res.status(200).json({ message: 'Nómina actualizada correctamente' });
+        } catch (error) {
+            if (error.code === 'not-found') {
+                console.log('Documento no encontrado. No se puede actualizar.');
+                return res.status(404).json({ error: 'Documento no encontrado. No se puede actualizar.' });
+            } else {
+                throw error;
+            }
         }
-
-        await updatePayroll(id, updatedPayroll);
-        res.status(200).json({ message: 'Nómina actualizada correctamente' });
     } catch (error) {
-        console.error('Error al actualizar la nómina:', error);
+        console.error('Error al actualizar la nómina:', error.message);
         res.status(500).json({ error: 'Error al actualizar la nómina' });
     }
 });
@@ -82,9 +78,24 @@ app.put('/api/payroll/:id', async (req, res) => {
 app.delete('/api/payroll/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        await deletePayroll(id);
-        res.status(200).json({ message: 'Nómina eliminada correctamente' });
+
+        if (!id) {
+            return res.status(400).json({ error: 'ID no proporcionado' });
+        }
+
+        try {
+            await deletePayroll(id);
+            res.status(200).json({ message: 'Nómina eliminada correctamente' });
+        } catch (error) {
+            if (error.code === 'not-found') {
+                console.log('Documento no encontrado. No se puede eliminar.');
+                return res.status(404).json({ error: 'Documento no encontrado. No se puede eliminar.' });
+            } else {
+                throw error;
+            }
+        }
     } catch (error) {
+        console.error('Error al eliminar la nómina:', error.message);
         res.status(500).json({ error: 'Error al eliminar la nómina' });
     }
 });
@@ -104,7 +115,11 @@ app.post('/api/login', async (req, res) => {
 
         // Verificar credenciales
         if (username === defaultUser.username && password === defaultUser.password) {
-            const token = jwt.sign({ username: defaultUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign(
+                { username: defaultUser.username, role: 'admin' }, // Agregar un nuevo campo al payload
+                process.env.JWT_SECRET, 
+                { expiresIn: '2h' } // Cambiar la duración del token
+            );
             console.log('Inicio de sesión exitoso. Token generado:', token);
             return res.json({ token });
         }

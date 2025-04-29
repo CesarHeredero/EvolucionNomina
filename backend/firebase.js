@@ -1,5 +1,5 @@
 const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc } = require('firebase/firestore');
+const { getFirestore, collection, getDocs, addDoc, updateDoc, doc, setDoc } = require('firebase/firestore');
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -13,28 +13,36 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-
-// Inicializar Firestore
 const db = getFirestore(firebaseApp);
 
 // Funciones para interactuar con Firestore
 const getPayrolls = async () => {
-    const payrollCollection = collection(db, 'payrolls');
-    const payrollSnapshot = await getDocs(payrollCollection);
-    return payrollSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-    }));
+    try {
+        const payrollCollection = collection(db, 'payrolls');
+        const payrollSnapshot = await getDocs(payrollCollection);
+        return payrollSnapshot.docs.map(doc => ({
+            id: doc.id, // Usar el ID generado por Firebase
+            ...doc.data(),
+        }));
+    } catch (error) {
+        console.error('Error al obtener los documentos de Firestore:', error.message);
+        throw new Error('Error al obtener los documentos de Firestore');
+    }
 };
 
 const addPayroll = async (payroll) => {
-    const payrollCollection = collection(db, 'payrolls');
-    return await addDoc(payrollCollection, payroll);
+    try {
+        const payrollCollection = collection(db, 'payrolls');
+        return await addDoc(payrollCollection, payroll); // Dejar que Firebase genere el ID
+    } catch (error) {
+        console.error('Error al añadir la nómina:', error.message);
+        throw new Error('Error al añadir la nómina');
+    }
 };
 
 const updatePayroll = async (id, updatedPayroll) => {
     try {
-        const payrollDoc = doc(db, 'payrolls', id);
+        const payrollDoc = doc(db, 'payrolls', id); // Usar el ID generado por Firebase
         await updateDoc(payrollDoc, updatedPayroll);
     } catch (error) {
         console.error('Error al actualizar el documento en Firestore:', error);
@@ -43,8 +51,13 @@ const updatePayroll = async (id, updatedPayroll) => {
 };
 
 const deletePayroll = async (id) => {
-    const payrollDoc = doc(db, 'payrolls', id);
-    return await deleteDoc(payrollDoc);
+    try {
+        const payrollDoc = doc(db, 'payrolls', id); // Usar el ID generado por Firebase
+        await deleteDoc(payrollDoc);
+    } catch (error) {
+        console.error('Error al eliminar el documento en Firestore:', error);
+        throw error;
+    }
 };
 
 module.exports = { getPayrolls, addPayroll, updatePayroll, deletePayroll };

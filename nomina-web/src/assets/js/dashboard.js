@@ -240,23 +240,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             if (!response.ok) {
-                if (response.status === 401) {
-                    console.error('Sesión expirada. Redirigiendo al login...');
-                    window.location.href = '../pages/login.html';
-                } else {
-                    throw new Error(`Error al cargar los datos: ${response.statusText}`);
-                }
-                return;
+                const errorData = await response.json();
+                throw new Error(`Error al cargar los datos: ${errorData.error || response.statusText}`);
             }
 
             const data = await response.json();
             if (!data || !Array.isArray(data.payrolls)) {
-                console.error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
-                tableBody.innerHTML = '<tr><td colspan="8">Error al cargar los datos</td></tr>';
-                return;
+                throw new Error('El formato de los datos no es válido. Se esperaba un array en la propiedad "payrolls".');
             }
 
-            // Actualizar la tabla con los datos obtenidos de Firebase
+            // Actualizar la tabla con los datos obtenidos
             sortedPayroll = data.payrolls.map(item => ({
                 id: item.id,
                 year: parseInt(item.year, 10),
@@ -378,15 +371,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             updatedItem[field] = field === 'year' || field === 'month' ? parseInt(input.value, 10) : parseFloat(input.value);
         });
 
-        // Validar los datos antes de enviarlos
-        const requiredFields = ['year', 'month', 'company', 'netMonth', 'flexibleCompensation', 'mileage'];
-        for (const field of requiredFields) {
-            if (updatedItem[field] === undefined || updatedItem[field] === null || updatedItem[field] === '') {
-                alert(`El campo ${field} es obligatorio.`);
-                return;
-            }
-        }
-
         try {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -406,13 +390,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(`Error al guardar los cambios: ${errorData.error || response.statusText}`);
+                if (response.status === 404) {
+                    alert(`Error: ${errorData.error}`);
+                } else {
+                    throw new Error(`Error al guardar los cambios: ${errorData.error || response.statusText}`);
+                }
+                return;
             }
 
             alert('Cambios guardados correctamente.');
             await loadData(); // Recargar la tabla y la gráfica después de guardar los cambios
         } catch (error) {
-            console.error('Error al guardar los cambios:', error);
+            console.error('Error al guardar los cambios:', error.message);
             alert('Hubo un problema al guardar los cambios. Por favor, inténtalo más tarde.');
         }
     };
@@ -444,13 +433,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             if (!response.ok) {
-                throw new Error(`Error al eliminar el registro: ${response.statusText}`);
+                const errorData = await response.json();
+                if (response.status === 404) {
+                    alert(`Error: ${errorData.error}`);
+                } else {
+                    throw new Error(`Error al eliminar el registro: ${errorData.error || response.statusText}`);
+                }
+                return;
             }
 
             alert('Registro eliminado correctamente.');
             await loadData(); // Recargar la tabla y la gráfica después de eliminar el registro
         } catch (error) {
-            console.error('Error al eliminar el registro:', error);
+            console.error('Error al eliminar el registro:', error.message);
             alert('Hubo un problema al eliminar el registro. Por favor, inténtalo más tarde.');
         }
     };

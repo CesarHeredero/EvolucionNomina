@@ -1,7 +1,6 @@
 {
   "payroll": [
     {
-      "id": 1,
       "year": "2016",
       "month": "7",
       "company": "Pamicom",
@@ -10,7 +9,6 @@
       "mileage": 0
     },
     {
-      "id": 2,
       "year": "2016",
       "month": "8",
       "company": "Pamicom",
@@ -19,7 +17,6 @@
       "mileage": 0
     },
     {
-      "id": 3,
       "year": "2016",
       "month": "9",
       "company": "Pamicom",
@@ -28,7 +25,6 @@
       "mileage": 0
     },
     {
-      "id": 4,
       "year": "2016",
       "month": "10",
       "company": "Pamicom",
@@ -37,7 +33,6 @@
       "mileage": 0
     },
     {
-      "id": 5,
       "year": "2016",
       "month": "11",
       "company": "Pamicom",
@@ -46,7 +41,6 @@
       "mileage": 0
     },
     {
-      "id": 6,
       "year": "2016",
       "month": "12",
       "company": "Devoteam",
@@ -55,7 +49,6 @@
       "mileage": 0
     },
     {
-      "id": 7,
       "year": "2017",
       "month": "1",
       "company": "Devoteam",
@@ -64,7 +57,6 @@
       "mileage": 0
     },
     {
-      "id": 8,
       "year": "2017",
       "month": "2",
       "company": "Devoteam",
@@ -73,7 +65,6 @@
       "mileage": 0
     },
     {
-      "id": 9,
       "year": "2017",
       "month": "3",
       "company": "Devoteam",
@@ -82,7 +73,6 @@
       "mileage": 0
     },
     {
-      "id": 10,
       "year": "2017",
       "month": "4",
       "company": "Devoteam",
@@ -91,7 +81,6 @@
       "mileage": 0
     },
     {
-      "id": 11,
       "year": "2017",
       "month": "5",
       "company": "Devoteam",
@@ -100,7 +89,6 @@
       "mileage": 0
     },
     {
-      "id": 12,
       "year": "2017",
       "month": "6",
       "company": "Devoteam",
@@ -109,7 +97,6 @@
       "mileage": 0
     },
     {
-      "id": 13,
       "year": "2017",
       "month": "7",
       "company": "Devoteam",
@@ -118,7 +105,6 @@
       "mileage": 0
     },
     {
-      "id": 14,
       "year": "2017",
       "month": "8",
       "company": "Devoteam",
@@ -127,7 +113,6 @@
       "mileage": 0
     },
     {
-      "id": 15,
       "year": "2017",
       "month": "9",
       "company": "Devoteam",
@@ -136,7 +121,6 @@
       "mileage": 0
     },
     {
-      "id": 16,
       "year": "2017",
       "month": "10",
       "company": "Devoteam",
@@ -145,7 +129,6 @@
       "mileage": 0
     },
     {
-      "id": 17,
       "year": "2017",
       "month": "11",
       "company": "Devoteam",
@@ -154,7 +137,6 @@
       "mileage": 0
     },
     {
-      "id": 18,
       "year": "2017",
       "month": "12",
       "company": "Devoteam",
@@ -163,7 +145,6 @@
       "mileage": 0
     },
     {
-      "id": 19,
       "year": "2018",
       "month": "1",
       "company": "Devoteam",
@@ -172,7 +153,6 @@
       "mileage": 0
     },
     {
-      "id": 20,
       "year": "2018",
       "month": "2",
       "company": "Devoteam",
@@ -181,7 +161,6 @@
       "mileage": 0
     },
     {
-      "id": 21,
       "year": "2018",
       "month": "3",
       "company": "Devoteam",
@@ -190,7 +169,6 @@
       "mileage": 0
     },
     {
-      "id": 22,
       "year": "2018",
       "month": "4",
       "company": "Devoteam",
@@ -199,7 +177,6 @@
       "mileage": 0
     },
     {
-      "id": 23,
       "year": "2018",
       "month": "5",
       "company": "Devoteam",
@@ -208,7 +185,6 @@
       "mileage": 0
     },
     {
-      "id": 24,
       "year": "2018",
       "month": "6",
       "company": "Devoteam",
@@ -217,7 +193,6 @@
       "mileage": 0
     },
     {
-      "id": 25,
       "year": "2018",
       "month": "7",
       "company": "Devoteam",
@@ -226,7 +201,6 @@
       "mileage": 0
     },
     {
-      "id": 26,
       "year": "2018",
       "month": "8",
       "company": "Devoteam",
@@ -235,7 +209,6 @@
       "mileage": 0
     },
     {
-      "id": 27,
       "year": "2018",
       "month": "9",
       "company": "Devoteam",
@@ -244,7 +217,6 @@
       "mileage": 0
     },
     {
-      "id": 28,
       "year": "2018",
       "month": "10",
       "company": "Devoteam",
@@ -253,7 +225,6 @@
       "mileage": 0
     },
     {
-      "id": 29,
       "year": "2018",
       "month": "11",
       "company": "Devoteam",
@@ -262,7 +233,6 @@
       "mileage": 0
     },
     {
-      "id": 30,
       "year": "2018",
       "month": "12",
       "company": "Devoteam",
@@ -271,7 +241,6 @@
       "mileage": 0
     },
     {
-      "id": 31,
       "year": "2019",
       "month": "1",
       "company": "Devoteam",
@@ -280,7 +249,6 @@
       "mileage": 115.2
     },
     {
-      "id": 32,
       "year": "2019",
       "month": "2",
       "company": "Devoteam",
@@ -289,7 +257,6 @@
       "mileage": 115.2
     },
     {
-      "id": 33,
       "year": "2019",
       "month": "3",
       "company": "Devoteam",
@@ -298,7 +265,6 @@
       "mileage": 120.96
     },
     {
-      "id": 34,
       "year": "2019",
       "month": "4",
       "company": "Devoteam",
@@ -307,7 +273,6 @@
       "mileage": 115.2
     },
     {
-      "id": 35,
       "year": "2017",
       "month": "5",
       "company": "Devoteam",
@@ -316,7 +281,6 @@
       "mileage": 109.44
     },
     {
-      "id": 36,
       "year": "2017",
       "month": "6",
       "company": "Devoteam",
@@ -325,7 +289,6 @@
       "mileage": 115.2
     },
     {
-      "id": 37,
       "year": "2019",
       "month": "7",
       "company": "Devoteam",
@@ -334,7 +297,6 @@
       "mileage": 132.48
     },
     {
-      "id": 38,
       "year": "2019",
       "month": "8",
       "company": "Devoteam",
@@ -343,7 +305,6 @@
       "mileage": 28.8
     },
     {
-      "id": 39,
       "year": "2019",
       "month": "9",
       "company": "Devoteam",
@@ -352,7 +313,6 @@
       "mileage": 120.96
     },
     {
-      "id": 40,
       "year": "2019",
       "month": "10",
       "company": "Devoteam",
@@ -361,7 +321,6 @@
       "mileage": 132.48
     },
     {
-      "id": 41,
       "year": "2019",
       "month": "11",
       "company": "Devoteam",
@@ -370,7 +329,6 @@
       "mileage": 115.2
     },
     {
-      "id": 42,
       "year": "2019",
       "month": "12",
       "company": "Devoteam",
@@ -379,7 +337,6 @@
       "mileage": 74.9
     },
     {
-      "id": 43,
       "year": "2020",
       "month": "1",
       "company": "Devoteam",
@@ -388,7 +345,6 @@
       "mileage": 109.44
     },
     {
-      "id": 44,
       "year": "2020",
       "month": "2",
       "company": "Devoteam",
@@ -397,7 +353,6 @@
       "mileage": 115.2
     },
     {
-      "id": 45,
       "year": "2020",
       "month": "3",
       "company": "Devoteam",
@@ -406,7 +361,6 @@
       "mileage": 46.08
     },
     {
-      "id": 46,
       "year": "2020",
       "month": "4",
       "company": "Devoteam",
@@ -415,7 +369,6 @@
       "mileage": 0
     },
     {
-      "id": 47,
       "year": "2020",
       "month": "5",
       "company": "Devoteam",
@@ -424,7 +377,6 @@
       "mileage": 0
     },
     {
-      "id": 48,
       "year": "2020",
       "month": "6",
       "company": "Devoteam",
@@ -433,7 +385,6 @@
       "mileage": 0
     },
     {
-      "id": 49,
       "year": "2020",
       "month": "7",
       "company": "Devoteam",
@@ -442,7 +393,6 @@
       "mileage": 0
     },
     {
-      "id": 50,
       "year": "2020",
       "month": "8",
       "company": "Devoteam",
@@ -451,7 +401,6 @@
       "mileage": 0
     },
     {
-      "id": 51,
       "year": "2020",
       "month": "9",
       "company": "Devoteam",
@@ -460,7 +409,6 @@
       "mileage": 0
     },
     {
-      "id": 52,
       "year": "2020",
       "month": "10",
       "company": "Devoteam",
@@ -469,7 +417,6 @@
       "mileage": 0
     },
     {
-      "id": 53,
       "year": "2020",
       "month": "11",
       "company": "Devoteam",
@@ -478,7 +425,6 @@
       "mileage": 0
     },
     {
-      "id": 54,
       "year": "2020",
       "month": "12",
       "company": "Devoteam",
@@ -487,7 +433,6 @@
       "mileage": 5.26
     },
     {
-      "id": 55,
       "year": "2021",
       "month": "1",
       "company": "Devoteam",
@@ -496,7 +441,6 @@
       "mileage": 0
     },
     {
-      "id": 56,
       "year": "2021",
       "month": "2",
       "company": "Devoteam",
@@ -505,7 +449,6 @@
       "mileage": 0
     },
     {
-      "id": 57,
       "year": "2021",
       "month": "3",
       "company": "Devoteam",
@@ -514,7 +457,6 @@
       "mileage": 0
     },
     {
-      "id": 58,
       "year": "2021",
       "month": "4",
       "company": "Devoteam",
@@ -523,7 +465,6 @@
       "mileage": 0
     },
     {
-      "id": 59,
       "year": "2021",
       "month": "5",
       "company": "Devoteam",
@@ -532,7 +473,6 @@
       "mileage": 0
     },
     {
-      "id": 60,
       "year": "2021",
       "month": "6",
       "company": "Devoteam",
@@ -541,7 +481,6 @@
       "mileage": 0
     },
     {
-      "id": 61,
       "year": "2021",
       "month": "7",
       "company": "Devoteam",
@@ -550,7 +489,6 @@
       "mileage": 0
     },
     {
-      "id": 62,
       "year": "2021",
       "month": "8",
       "company": "Devoteam",
@@ -559,7 +497,6 @@
       "mileage": 0
     },
     {
-      "id": 63,
       "year": "2021",
       "month": "9",
       "company": "Devoteam",
@@ -568,7 +505,6 @@
       "mileage": 0
     },
     {
-      "id": 64,
       "year": "2021",
       "month": "10",
       "company": "Devoteam",
@@ -577,7 +513,6 @@
       "mileage": 17.24
     },
     {
-      "id": 65,
       "year": "2021",
       "month": "11",
       "company": "Devoteam",
@@ -586,7 +521,6 @@
       "mileage": 5.76
     },
     {
-      "id": 66,
       "year": "2021",
       "month": "12",
       "company": "Devoteam",
@@ -595,7 +529,6 @@
       "mileage": 0
     },
     {
-      "id": 67,
       "year": "2022",
       "month": "1",
       "company": "Devoteam",
@@ -604,7 +537,6 @@
       "mileage": 0
     },
     {
-      "id": 68,
       "year": "2022",
       "month": "2",
       "company": "Devoteam",
@@ -613,7 +545,6 @@
       "mileage": 17.28
     },
     {
-      "id": 69,
       "year": "2022",
       "month": "3",
       "company": "Devoteam",
@@ -622,7 +553,6 @@
       "mileage": 23.04
     },
     {
-      "id": 70,
       "year": "2022",
       "month": "4",
       "company": "Devoteam",
@@ -631,7 +561,6 @@
       "mileage": 17.28
     },
     {
-      "id": 71,
       "year": "2022",
       "month": "5",
       "company": "Devoteam",
@@ -640,7 +569,6 @@
       "mileage": 17.28
     },
     {
-      "id": 72,
       "year": "2022",
       "month": "6",
       "company": "Devoteam",
@@ -649,7 +577,6 @@
       "mileage": 17.28
     },
     {
-      "id": 73,
       "year": "2022",
       "month": "7",
       "company": "Devoteam",
@@ -658,7 +585,6 @@
       "mileage": 0
     },
     {
-      "id": 74,
       "year": "2022",
       "month": "8",
       "company": "Devoteam",
@@ -667,7 +593,6 @@
       "mileage": 0
     },
     {
-      "id": 75,
       "year": "2022",
       "month": "9",
       "company": "Devoteam",
@@ -676,7 +601,6 @@
       "mileage": 23.04
     },
     {
-      "id": 76,
       "year": "2022",
       "month": "10",
       "company": "Devoteam",
@@ -685,7 +609,6 @@
       "mileage": 11.52
     },
     {
-      "id": 77,
       "year": "2022",
       "month": "11",
       "company": "Devoteam",
@@ -694,7 +617,6 @@
       "mileage": 17.28
     },
     {
-      "id": 78,
       "year": "2022",
       "month": "12",
       "company": "Devoteam",
@@ -703,7 +625,6 @@
       "mileage": 23.04
     },
     {
-      "id": 79,
       "year": "2023",
       "month": "1",
       "company": "Devoteam",
@@ -712,7 +633,6 @@
       "mileage": 17.28
     },
     {
-      "id": 80,
       "year": "2023",
       "month": "2",
       "company": "Devoteam",
@@ -721,7 +641,6 @@
       "mileage": 17.28
     },
     {
-      "id": 81,
       "year": "2023",
       "month": "3",
       "company": "Devoteam",
@@ -730,7 +649,6 @@
       "mileage": 23.04
     },
     {
-      "id": 82,
       "year": "2023",
       "month": "4",
       "company": "Devoteam",
@@ -739,7 +657,6 @@
       "mileage": 23.04
     },
     {
-      "id": 83,
       "year": "2023",
       "month": "5",
       "company": "Flexicar",
@@ -748,7 +665,6 @@
       "mileage": 0
     },
     {
-      "id": 84,
       "year": "2023",
       "month": "6",
       "company": "Flexicar",
@@ -757,7 +673,6 @@
       "mileage": 0
     },
     {
-      "id": 85,
       "year": "2023",
       "month": "7",
       "company": "Flexicar",
@@ -766,7 +681,6 @@
       "mileage": 0
     },
     {
-      "id": 86,
       "year": "2023",
       "month": "8",
       "company": "Flexicar",
@@ -775,7 +689,6 @@
       "mileage": 0
     },
     {
-      "id": 87,
       "year": "2023",
       "month": "9",
       "company": "Flexicar",
@@ -784,7 +697,6 @@
       "mileage": 0
     },
     {
-      "id": 88,
       "year": "2023",
       "month": "10",
       "company": "Flexicar",
@@ -793,7 +705,6 @@
       "mileage": 0
     },
     {
-      "id": 89,
       "year": "2023",
       "month": "11",
       "company": "Flexicar",
@@ -802,7 +713,6 @@
       "mileage": 0
     },
     {
-      "id": 90,
       "year": "2023",
       "month": "12",
       "company": "Flexicar",
@@ -811,7 +721,6 @@
       "mileage": 0
     },
     {
-      "id": 91,
       "year": "2024",
       "month": "1",
       "company": "Flexicar",
@@ -820,7 +729,6 @@
       "mileage": 0
     },
     {
-      "id": 92,
       "year": "2024",
       "month": "2",
       "company": "Flexicar",
@@ -829,7 +737,6 @@
       "mileage": 0
     },
     {
-      "id": 93,
       "year": "2024",
       "month": "3",
       "company": "Flexicar",
@@ -838,7 +745,6 @@
       "mileage": 0
     },
     {
-      "id": 94,
       "year": "2024",
       "month": "4",
       "company": "Flexicar",
@@ -847,7 +753,6 @@
       "mileage": 0
     },
     {
-      "id": 95,
       "year": "2024",
       "month": "5",
       "company": "Flexicar",
@@ -856,7 +761,6 @@
       "mileage": 0
     },
     {
-      "id": 96,
       "year": "2024",
       "month": "6",
       "company": "Flexicar",
@@ -865,7 +769,6 @@
       "mileage": 0
     },
     {
-      "id": 97,
       "year": "2024",
       "month": "7",
       "company": "Flexicar",
@@ -874,7 +777,6 @@
       "mileage": 0
     },
     {
-      "id": 98,
       "year": "2024",
       "month": "8",
       "company": "Flexicar",
@@ -883,7 +785,6 @@
       "mileage": 0
     },
     {
-      "id": 99,
       "year": "2024",
       "month": "9",
       "company": "Flexicar",
@@ -892,7 +793,6 @@
       "mileage": 0
     },
     {
-      "id": 100,
       "year": "2024",
       "month": "10",
       "company": "Flexicar",
@@ -901,7 +801,6 @@
       "mileage": 0
     },
     {
-      "id": 101,
       "year": "2024",
       "month": "11",
       "company": "Flexicar",
@@ -910,7 +809,6 @@
       "mileage": 0
     },
     {
-      "id": 102,
       "year": "2024",
       "month": "12",
       "company": "Flexicar",
@@ -919,7 +817,6 @@
       "mileage": 0
     },
     {
-      "id": 103,
       "year": "2025",
       "month": "1",
       "company": "Flexicar",
@@ -928,7 +825,6 @@
       "mileage": 0
     },
     {
-      "id": 104,
       "year": "2025",
       "month": "2",
       "company": "Flexicar",
@@ -937,7 +833,6 @@
       "mileage": 0
     },
     {
-      "id": 105,
       "year": "2025",
       "month": "3",
       "company": "Flexicar",
