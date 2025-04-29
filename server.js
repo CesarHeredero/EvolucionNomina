@@ -53,8 +53,22 @@ const updatePayroll = async (id, updatedPayroll) => {
 };
 
 const deletePayroll = async (id) => {
-    const payrollDoc = doc(db, 'payrolls', id);
-    await deleteDoc(payrollDoc);
+    try {
+        const payrollDoc = doc(db, 'payrolls', id); // Referencia al documento
+        const payrollSnapshot = await getDocs(collection(db, 'payrolls'));
+
+        // Verificar si el documento existe antes de intentar eliminarlo
+        const exists = payrollSnapshot.docs.some(doc => doc.id === id);
+        if (!exists) {
+            throw { code: 'not-found', message: 'Documento no encontrado. No se puede eliminar.' };
+        }
+
+        await deleteDoc(payrollDoc); // Eliminar el documento
+        console.log(`Documento con ID ${id} eliminado correctamente.`);
+    } catch (error) {
+        console.error('Error al eliminar el documento en Firestore:', error.message || error);
+        throw error;
+    }
 };
 
 // Rutas
@@ -113,12 +127,16 @@ app.delete('/api/payroll/:id', async (req, res) => {
             await deletePayroll(id);
             res.status(200).json({ message: 'Nómina eliminada correctamente' });
         } catch (error) {
-            console.error('Error al eliminar la nómina:', error.message);
-            res.status(500).json({ error: 'Error al eliminar la nómina' });
+            if (error.code === 'not-found') {
+                console.log(`Documento con ID ${id} no encontrado. No se puede eliminar.`);
+                return res.status(404).json({ error: 'Documento no encontrado. No se puede eliminar.' });
+            } else {
+                throw error;
+            }
         }
     } catch (error) {
-        console.error('Error al procesar la solicitud:', error.message);
-        res.status(500).json({ error: 'Error al procesar la solicitud' });
+        console.error('Error al eliminar la nómina:', error.message || error);
+        res.status(500).json({ error: 'Error al eliminar la nómina' });
     }
 });
 
