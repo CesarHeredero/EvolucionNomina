@@ -5,6 +5,7 @@ services:
     region: oregon
     buildCommand: "npm install"
     startCommand: "npm start"
+    runtime: node 18 # Asegúrate de usar una versión estable y compatible
     envVars:
       - key: FIREBASE_API_KEY
         value: YOUR_FIREBASE_API_KEY
