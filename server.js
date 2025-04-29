@@ -106,13 +106,13 @@ app.post('/api/login', async (req, res) => {
         // Credenciales predeterminadas
         const defaultUser = {
             username: 'admin',
-            password: '1234', // Contraseña sin cifrar para este ejemplo
+            password: bcrypt.hashSync('1234', 10), // Usar bcryptjs para generar el hash
         };
 
         console.log('Intentando iniciar sesión con:', username, password);
 
         // Verificar credenciales
-        if (username === defaultUser.username && password === defaultUser.password) {
+        if (username === defaultUser.username && bcrypt.compareSync(password, defaultUser.password)) {
             const token = jwt.sign(
                 { username: defaultUser.username, role: 'admin' }, // Agregar un nuevo campo al payload
                 process.env.JWT_SECRET, 

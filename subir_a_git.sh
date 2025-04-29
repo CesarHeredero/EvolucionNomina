@@ -2,7 +2,7 @@
 
 # Subir cambios del backend
 echo "Subiendo cambios del backend..."
-cd "$(dirname "$0")/backend"
+cd "$(dirname "$0")"
 if [ ! -d ".git" ]; then
     git init
     git remote add origin https://github.com/CesarHeredero/BackNomina.git
